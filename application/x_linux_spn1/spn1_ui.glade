@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.40.0 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkAdjustment" id="L_adj">
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+    <property name="page-size">0.020000000000000906</property>
+  </object>
+  <object class="GtkDialog" id="Motor_driver_menu">
+    <property name="can-focus">False</property>
+    <property name="type-hint">dialog</property>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can-focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">Choose Your Board</property>
+            <attributes>
+              <attribute name="foreground" value="#030323234b4b"/>
+              <attribute name="size" value="23808"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkEventBox" id="IHM_12">
+                <property name="name">IHM_12</property>
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="visible-window">False</property>
+                <child>
+                  <object class="GtkImage" id="IHM_12_image">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="stock">gtk-missing-image</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEventBox" id="IHM_15">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="visible-window">False</property>
+                <child>
+                  <object class="GtkImage" id="IHM_15_image">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="stock">gtk-missing-image</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">X-NUCLEO-IHM12A1</property>
+                <attributes>
+                  <attribute name="foreground" value="#030323234b4b"/>
+                  <attribute name="size" value="14592"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">X-NUCLEO-IHM15A1</property>
+                <attributes>
+                  <attribute name="foreground" value="#030323234b4b"/>
+                  <attribute name="size" value="14592"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAdjustment" id="R_adj">
+    <property name="upper">100</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
+  </object>
+  <object class="GtkWindow" id="window1">
+    <property name="can-focus">False</property>
+    <property name="title" translatable="yes">Motor Control</property>
+    <property name="hide-titlebar-when-maximized">True</property>
+    <child>
+      <!-- n-columns=9 n-rows=7 -->
+      <object class="GtkGrid" id="Grid1">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="column-homogeneous">True</property>
+        <child>
+          <object class="GtkToggleButton" id="Switch">
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">True</property>
+          </object>
+          <packing>
+            <property name="left-attach">4</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="C_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes">X-LINUX-SPN1</property>
+            <attributes>
+              <attribute name="foreground" value="#030323234b4b"/>
+              <attribute name="size" value="32000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">2</property>
+            <property name="top-attach">0</property>
+            <property name="width">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="dtry">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">8</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="Reset">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScale" id="R_scale">
+            <property name="can-focus">True</property>
+            <property name="opacity">0</property>
+            <property name="orientation">vertical</property>
+            <property name="adjustment">R_adj</property>
+            <property name="round-digits">1</property>
+            <property name="draw-value">False</property>
+            <property name="value-pos">bottom</property>
+          </object>
+          <packing>
+            <property name="left-attach">7</property>
+            <property name="top-attach">1</property>
+            <property name="height">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="R_duty">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="opacity">0</property>
+            <attributes>
+              <attribute name="foreground" value="#f9f9f0f06b6b"/>
+              <attribute name="size" value="15000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">7</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="L_duty">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="opacity">0</property>
+            <attributes>
+              <attribute name="foreground" value="#f9f9f0f06b6b"/>
+              <attribute name="size" value="15000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScale" id="L_scale">
+            <property name="can-focus">True</property>
+            <property name="opacity">0</property>
+            <property name="orientation">vertical</property>
+            <property name="adjustment">L_adj</property>
+            <property name="round-digits">1</property>
+            <property name="draw-value">False</property>
+            <property name="value-pos">bottom</property>
+          </object>
+          <packing>
+            <property name="left-attach">1</property>
+            <property name="top-attach">1</property>
+            <property name="height">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="R_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Board_name">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <attributes>
+              <attribute name="size" value="21504"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">3</property>
+            <property name="top-attach">6</property>
+            <property name="width">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="B_button">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">4</property>
+            <property name="top-attach">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="L_button">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">3</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="R_button">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">5</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="F_button">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">4</property>
+            <property name="top-attach">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="Error_msg">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <attributes>
+              <attribute name="size" value="14548"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left-attach">2</property>
+            <property name="top-attach">5</property>
+            <property name="width">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="St_logo">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="visible-window">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">6</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

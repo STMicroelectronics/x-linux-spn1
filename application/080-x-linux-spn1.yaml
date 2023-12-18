@@ -1,0 +1,12 @@
+Application:
+    Name: X-LINUX-SPN1
+    Description: Motor Control Expansion 
+    Icon: application/x_linux_spn1/pictures/Menu-logo.png
+    Board:
+        List: all
+    Type: python
+    Python:
+        Module: application.x_linux_spn1.spn1_ui
+    Action:
+        button_release_event: python_start
+        button_press_event: highlight_eventBox
