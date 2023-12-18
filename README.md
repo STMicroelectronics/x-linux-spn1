@@ -1,5 +1,7 @@
-
 # X-LINUX-SPN1 V2.0.0 Linux Package
+
+![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/x-linux-spn1.svg?color=brightgreen)
+==============================================================================================================
 
 ## Introduction
 
