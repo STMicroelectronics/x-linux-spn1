@@ -1,5 +1,12 @@
 # Release Notes
 
+### V 3.0.0 (15th July 2024)
+**Added support for EVSPIN948**
+- API for STSPIN948
+- Code refactored into classes for easy integration
+- Better error handling
+- Now using official gpiod bindings
+
 ### V 2.0.0 (22th September 2023)
 **Added support for X-NUCLEO-IHM12A1**
 - API for STSPIN240

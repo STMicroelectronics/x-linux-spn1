@@ -1,12 +1,11 @@
 #!/usr/bin/python3
 
-# Copyright (c) 2023 STMicroelectronics. All rights reserved.
+# Copyright (c) 2024 STMicroelectronics. All rights reserved.
 #
 # This software component is licensed by ST under BSD 3-Clause license,
 # the "License"; You may not use this file except in compliance with the
 # License. You may obtain a copy of the License at:
 #                     opensource.org/licenses/BSD-3-Clause
-
 
 import sys
 import gi
@@ -20,32 +19,39 @@ from gi.repository import Gtk as gtk , Gdk,  GdkPixbuf
 # For simulating UI on PC , please use
 # the variable SIMULATE = 1
 SIMULATE = 0
+
 if SIMULATE > 0:
     #DEMO_PATH = os.environ['HOME']+"/Desktop/launcher"
-    DEMO_PATH = "/home/ubuntu/root/local"
+    DEMO_PATH = "/path/to/demolauncher"
 else:
     DEMO_PATH = "/usr/local/demo"
+
 cc_count=5
 close=0
 error =0
-
+#ST Logo
 img_logo=os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Logo.png")
+#Center control button icons
 img_F= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_F.png")
-
 img_B= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_B.png")
 img_L= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_L.png")
 img_R= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_R.png")
+
 imagelogo=None
 imager=None
 imagel=None
 imagef=None
 imageb=None
+# Z variable is used to manage restart of application
 z=1
+
 popup_window=None
 window1=None
 gladeFile=None
+
 img_IHM_12= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/image_IHM_12.png")
 img_IHM_15= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/image_IHM_15.png")
+img_STSPIN948= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/image_STSPIN948.png")
 img_F_G= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_F_Green.png")
 img_B_G= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_B_Green.png")
 img_L_G= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow_L_Green.png")
@@ -53,6 +59,7 @@ img_R_G= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Closed arrow
 
 new_pixbuf_IHM_12 = GdkPixbuf.Pixbuf.new_from_file(img_IHM_12)
 new_pixbuf_IHM_15 = GdkPixbuf.Pixbuf.new_from_file(img_IHM_15)
+new_pixbuf_STSPIN948 = GdkPixbuf.Pixbuf.new_from_file(img_STSPIN948)
 new_pixbuf_F = GdkPixbuf.Pixbuf.new_from_file(img_F)
 new_pixbuf_B = GdkPixbuf.Pixbuf.new_from_file(img_B)
 new_pixbuf_R = GdkPixbuf.Pixbuf.new_from_file(img_R)
@@ -61,32 +68,49 @@ new_pixbuf_B_G = GdkPixbuf.Pixbuf.new_from_file(img_B_G)
 new_pixbuf_L_G = GdkPixbuf.Pixbuf.new_from_file(img_L_G)
 new_pixbuf_R_G = GdkPixbuf.Pixbuf.new_from_file(img_R_G)
 new_pixbuf_F_G = GdkPixbuf.Pixbuf.new_from_file(img_F_G)
+
 motor =None
 first_on=0
 Board = None
+
 module_12 =0
 module_15 =0
+module_948 = 0
 
 def IHM_12_driver(x,y):
-
     global motor
     global Board
+
     if Board !="IHM_12":
-        import application.x_linux_spn1.ihm12_api as motor
+        from application.x_linux_spn1.x_nucleo_ihm12a1_driver import IHM12a1Driver
+        motor = IHM12a1Driver()
+        motor.setup_gpio()
 
     Board="IHM_12"
-   
+
     popup_window.destroy()
-    
+
+def STSPIN948_driver(x,y):
+    global motor
+    global Board
+    if Board !="SPIN948":
+        from application.x_linux_spn1.evspin948_driver import EVSPIN948Driver
+        motor = EVSPIN948Driver()
+        motor.setup_gpio()
+     
+    Board="SPIN948"
+    popup_window.destroy()
+
 
 def IHM_15_driver(x,y):
     global motor
     global Board
+
     if Board != "IHM_15":
-        try:
-            import application.x_linux_spn1.ihm15_api as motor
-        except:
-            import ihm15_api as motor
+        from application.x_linux_spn1.x_nucleo_ihm15a1_driver import IHM15a1Driver
+        motor = IHM15a1Driver()
+        motor.setup_gpio()
+
      
     Board="IHM_15"
     popup_window.destroy()
@@ -103,14 +127,16 @@ def create_popup_window(parent_window, glade_file, width, height):
 
     IHM_12 = builder.get_object("IHM_12")
     IHM_12.connect("button_press_event",IHM_12_driver)
-  
-    image_widget_IHM_12 = builder.get_object("IHM_12_image")
     
+    image_widget_IHM_12 = builder.get_object("IHM_12_image")
+    STSPIN948 = builder.get_object("STSPIN948")
+    STSPIN948.connect("button_press_event",STSPIN948_driver)
+    image_widget_STSPIN948 = builder.get_object("STSPIN948_image")
     IHM_15 = builder.get_object("IHM_15")
     IHM_15.connect("button_press_event",IHM_15_driver)
  
     image_widget_IHM_15 = builder.get_object("IHM_15_image")
- 
+    image_widget_STSPIN948.set_from_pixbuf(new_pixbuf_STSPIN948)
     image_widget_IHM_12.set_from_pixbuf(new_pixbuf_IHM_12)
     image_widget_IHM_15.set_from_pixbuf(new_pixbuf_IHM_15)
     popup_window.fullscreen()
@@ -131,11 +157,10 @@ class Main(gtk.Window):
         global imagel
         global imager
         global imagelogo
-        #logo
+        #logo and button icons
         Logo = self.builder.get_object("St_logo")
         imagelogo = gtk.Image.new_from_file(img_logo)
         Logo.add(imagelogo)
-        
         img= os.path.join(DEMO_PATH, "application/x_linux_spn1/pictures/Close.png")
         
         dtry = self.builder.get_object("dtry")
@@ -147,6 +172,7 @@ class Main(gtk.Window):
         image = gtk.Image.new_from_file(img_RD)
         Reset.add(image)
         Reset.connect("button_press_event",self.Reload)
+       
         #buttons for movement
         F_button = self.builder.get_object("F_button")
         imagef = gtk.Image.new_from_file(img_F)
@@ -162,9 +188,6 @@ class Main(gtk.Window):
         context.add_provider(css_provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         context.add_class("custom")
 
-
-       
-
         context =dtry.get_style_context()
         context.add_provider(css_provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         context.add_class("custom")
@@ -173,7 +196,6 @@ class Main(gtk.Window):
             Error_msg= self.builder.get_object("Error_msg")
             Error_msg.set_label("Fault detected, To reset please restart the Board")
 
-
         # buttons for movement
         B_button = self.builder.get_object("B_button")
         B_button.connect("button_press_event",self.printTextB)
@@ -181,8 +203,6 @@ class Main(gtk.Window):
         imageb = gtk.Image.new_from_file(img_B)
         B_button.add(imageb)
        
-
-
         L_button = self.builder.get_object("L_button")
         L_button.connect("button_press_event",self.printTextL)
        
@@ -195,15 +215,9 @@ class Main(gtk.Window):
         imager = gtk.Image.new_from_file(img_R)
         R_button.add(imager)
        
-
         #labels to show duty % in realtime
         L_label =self.builder.get_object("L_duty")
-        L_label.set_label("50%")
-
-        
-       
-
-       
+        L_label.set_label("50%")    
         
         L_scale_button = self.builder.get_object("L_scale")
         L_scale_button.connect("value-changed", self.L_on_scale_value_changed)
@@ -213,14 +227,11 @@ class Main(gtk.Window):
         R_scale_button.connect("value-changed", self.R_on_scale_value_changed)
         R_scale_button.set_value(50)
 
-
-
         #CSS on button
         #1
         context =B_button.get_style_context()
         context.add_provider(css_provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         context.add_class("custom")
-
         #2
         context =L_button.get_style_context()
         context.add_provider(css_provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
@@ -229,8 +240,6 @@ class Main(gtk.Window):
         context =R_button.get_style_context()
         context.add_provider(css_provider, gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         context.add_class("custom")
-       
-       
 
         # switch(on/off)
         Switch = self.builder.get_object("Switch")
@@ -241,10 +250,10 @@ class Main(gtk.Window):
         context1.add_class("custom1") 
         global count_start
         global window1   
+
         if count_start==0:
             create_popup_window(window1, gladeFile, parent.get_size()[0], parent.get_size()[1])  
         count_start=1
-
         
         if Board =="IHM_12":
             Board_name=self.builder.get_object("Board_name")
@@ -252,17 +261,16 @@ class Main(gtk.Window):
         elif Board=="IHM_15":
             Board_name=self.builder.get_object("Board_name")
             Board_name.set_label("X-NUCLEO-IHM15A1") 
-
-
+        elif Board=="SPIN948":
+            Board_name=self.builder.get_object("Board_name")
+            Board_name.set_label("EVSPIN948 Board") 
 
         window1 = self.builder.get_object('window1')
-
         dtry.connect("button_press_event",self.Wclose)
 
         #Show window   
         window1.connect("delete-event",gtk.main_quit) 
         window1 .set_default_size(parent.get_size()[0], parent.get_size()[1])
-        #window1.fullscreen()
         
         window1.set_decorated(False)
         window1.show_all()
@@ -275,41 +283,44 @@ class Main(gtk.Window):
         global motor
         global first_on
         global close
+        
         close=1
         first_on=0
+
         motor.reset()
-        motor.end()
-        
+        motor.end() 
         window1.destroy()
       
-        
-
     
     def R_on_scale_value_changed(self,widget):
         value = widget.get_value()
         R_label =self.builder.get_object("R_duty")
         R_label.set_label("%d%%" %(100- value))
     
+   
     def L_on_scale_value_changed(self,widget):
         value = widget.get_value()
         L_label =self.builder.get_object("L_duty")
         L_label.set_label("%d%%" %(100- value))
+    
+    
     def Current_check_ui(self):
         global error
         global cc_count
         global close
+
         while(1):
-            if (motor.Current_check() == 0):
+            if (motor.current_check() == 0):
                 time.sleep(1)
-                if (error == 0 and motor.Current_check() == 0):
+                if (error == 0 and motor.current_check() == 0):
                     Error_msg= self.builder.get_object("Error_msg")
                     Error_msg.set_label("Fault detected, To reset please restart the Board")
                     error=1
-                    while(motor.Current_check()==0):
+                    while(motor.current_check()==0):
                         if close==1:
                             return   
                       
-            if (motor.Current_check()==1 and error==1):
+            if (motor.current_check()==1 and error==1):
                 Error_msg= self.builder.get_object("Error_msg")
                 Error_msg.set_label("")
                 error=0
@@ -319,24 +330,24 @@ class Main(gtk.Window):
             if close==1:
                 return      
 
-    def printTextON(self, widget):
 
+    def printTextON(self, widget):
         global z
         global error
+
         if z==1 and error==0:
             global first_on
             if first_on==0:
-
                 imagef.set_from_pixbuf(new_pixbuf_F_G)
                 imageb.set_from_pixbuf(new_pixbuf_B)
                 imager.set_from_pixbuf(new_pixbuf_R)
                 imagel.set_from_pixbuf(new_pixbuf_L)
                 first_on=1     
+     
             motor.start()
             
-
-
             z=0
+ 
             Switch = self.builder.get_object("Switch")
             Switch.set_label("On")
               
@@ -346,6 +357,7 @@ class Main(gtk.Window):
                 motor.stop()
                 Switch = self.builder.get_object("Switch")
                 Switch.set_label("Off")
+
 
     def printTextLU(self, widget,event):
         global y
@@ -368,6 +380,7 @@ class Main(gtk.Window):
         imageb.set_from_pixbuf(new_pixbuf_B)
         imager.set_from_pixbuf(new_pixbuf_R)
         imagel.set_from_pixbuf(new_pixbuf_L)
+     
         motor.reset()
         global z
         global error
@@ -375,8 +388,10 @@ class Main(gtk.Window):
         error =0
         global first_on
         first_on=0
+     
         Switch = self.builder.get_object("Switch")
         Switch.set_label("Off")
+     
         L_scale_button = self.builder.get_object("L_scale")
         L_scale_button.connect("value-changed", self.L_on_scale_value_changed)
         L_scale_button.set_value(50)
@@ -384,7 +399,6 @@ class Main(gtk.Window):
         R_scale_button = self.builder.get_object("R_scale")
         R_scale_button.connect("value-changed", self.R_on_scale_value_changed)
         R_scale_button.set_value(50)
-
 
 
 #motor controller functions
@@ -401,6 +415,7 @@ class Main(gtk.Window):
         imagef.set_from_pixbuf(new_pixbuf_F)
         imager.set_from_pixbuf(new_pixbuf_R)
         imagel.set_from_pixbuf(new_pixbuf_L)
+      
         motor.backward()
 
 
@@ -416,6 +431,7 @@ class Main(gtk.Window):
         imagef.set_from_pixbuf(new_pixbuf_F)
         imageb.set_from_pixbuf(new_pixbuf_B)
         imagel.set_from_pixbuf(new_pixbuf_L)
+    
         motor.right()
 
 

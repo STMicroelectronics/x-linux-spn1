@@ -1,6 +1,6 @@
 BSD-3-Clause
 
-Copyright 2023 STMicroelectronics.
+Copyright 2024 STMicroelectronics.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
